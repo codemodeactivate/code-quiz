@@ -1,7 +1,7 @@
 # Code Quiz
 Case Western Coding Bootcamp Module 04 Challenge
 
-[Live Demo](#)
+[Live Demo](#https://codemodeactivate.github.io/code-quiz/)
 
 ![Screenshot](/screenshot.png)
 
