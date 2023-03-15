@@ -1,15 +1,19 @@
 var timer = document.getElementById("timer");
 const startQuiz = document.getElementById("start-quiz");
 const quiz = document.getElementById("quiz");
+const quizIntro = document.getElementById("quiz-intro");
 var initialTime = 10;
-const url= 'questions.json';
+const url= './assets/js/questions.json';
 const corsUrl = `https://cors-anywhere.herokuapp.com/${url}`;
+let currentScore; //initialize currentScore
+let highScores = {}; //initialize high scores to later be stored in an object with name:score as k:v
 
 function loadQuiz() {
-    fetch(corsUrl)
+    quizIntro.style.display = 'none';
+    fetch(url)
     .then(res => res.json())
-    .then(quizLoaded => {
-    console.log(quizLoaded);
+    .then(data => {
+        console.log(data);
   })
     .catch(error => console.error(error));
 
@@ -18,13 +22,14 @@ function loadQuiz() {
 
 quiz.onclick = () => {
     console.log('ready');
-    loadQuiz;
+    console.log(quizIntro);
+    loadQuiz();
     timer.style.color = "";
     //startGame();
     //timeRemaining();
     countDown(initialTime);
-    console.log(url);
-    console.log(loadQuiz());
+
+
 
 }
 
