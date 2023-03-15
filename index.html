@@ -11,25 +11,29 @@
 <body>
 <div class="container">
     <header class="row">
-        <section class="high-scores col text-center"><span>High Scores</span></section>
-        <section class="timer col text-center"><span>Timer!!</span></section>
+        <section id="high-scores" class="col text-center"><a href="#" class="text-decoration-none">View High Scores</a></section>
+        <section id="timer" class="col text-center"><span>60s</span></section>
     </header>
 
 
     <main class="mt-5 align-items-center">
         <section class="quiz col text-center">
             <div class="quiz-intro">
-                <h1 class="display-1 text-indigo-200">Coding Quiz Challenge</h1>
-                <p>Try to answer the following code related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds.</p>
+                <h1 class="display-3 text-indigo-200">Coding Quiz Challenge</h1>
+                <p class="h5 fw-normal">Try to answer the following code related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds.</p>
+
+                <button type="button" class="btn btn-primary">Start Quiz</button>
             </div>
-            <div class="quiz">
-                <div class="quiz-question">
+            <div id="quiz" class="quiz">
+                <div id="quiz-question" class="quiz-question">
 
                 </div>
-                <div class="quiz-answers">
-                    <button class="button">Answer 1</button>
+                <div id="quiz-answers" class="">
+                    <button type="button" class="btn btn-primary">Answer 1</button>
                 </div>
-                <div class="answer-preview">
+                <div id="answer-preview" class="d-flex flex-row border-top mt-5">
+                    <hr >
+                    <span id="ans-status" class="display-6 p-4">Correct!</span>
 
                 </div>
             </div>
