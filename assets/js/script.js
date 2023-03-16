@@ -9,10 +9,11 @@ const corsUrl = `https://cors-anywhere.herokuapp.com/${url}`; //json workaround?
 let currentScore; //initialize currentScore
 let highScores = {}; //initialize high scores to later be stored in an object with name:score as k:v
 const shuffled = ""; //initializes random question order
-let currentQuestionIndex; //initializes index to find out which question we're on
+let currentQuestionIndex = 0; //initializes index to find out which question we're on
 const currentQuestion = document.getElementById('current-question');//current question div
 const answerButtons = document.getElementById('quiz-answers'); //current answer button selection div
 let quizData;
+const answerPreview = document.getElementById("answer-preview");
 
 
 //load quiz data
@@ -45,7 +46,8 @@ function gameStart() {
     //timeRemaining();
     countDown(initialTime);
     currentQuestionIndex = 0;
-    //nextQuestion();
+    nextQuestion();
+    toggle(answerPreview);
 
 }
 
@@ -61,8 +63,19 @@ version 2.0?
 */
 
 function nextQuestion() {
-    currentQuestion.textContent = quizData[currentQuestion].question;
-    currentQuestionIndex++;
+    var currentQuestion = quizData.quiz[currentQuestionIndex]; //initialize and get current question
+    questionContainer.textContent = currentQuestion.question; //update question text
+    currentQuestion.choices.forEach(function(choice, index){
+        var choiceEle = document.createElement('button');
+        choiceEle.setAttribute('class', 'btn btn-primary');
+        choiceEle.setAttribute('value', choice);
+        choiceEle.textContent = choice;
+        answerButtons.appendChild(choiceEle);
+    })
+
+
+    currentQuestionIndex++; //+1!
+
 }
 
 
