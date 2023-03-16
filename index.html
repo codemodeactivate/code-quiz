@@ -37,14 +37,16 @@
 
     <main class="mt-5 align-items-center">
         <!--Main Quiz Box-->
-        <section id="quiz" class="col text-center">
+        <section id="quiz-container" class="col text-center">
             <div id="quiz-intro">
                 <h1 class="display-3 text-indigo-200">Coding Quiz Challenge</h1>
                 <p class="h5 fw-normal">Try to answer the following code related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds.</p>
 
                 <button type="button" id="start-quiz" class="btn btn-primary">Start Quiz</button>
             </div>
-            <div>
+
+            <!--Quiz Questions & Answers -->
+            <div id="question-container" class="d-none">
                 <div id="quiz-question" class=" justify-content-md-start">
                     <p class="display-6">This is a question!</p>
                 </div>
@@ -58,6 +60,8 @@
                     <span id="ans-status" class="display-6 p-4 text-muted"></span>
 
                 </div>
+            </div>
+            <!-- End Questions & Answers -->
             </div>
         </section>
     </main>
