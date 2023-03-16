@@ -10,29 +10,40 @@ let currentScore; //initialize currentScore
 let highScores = {}; //initialize high scores to later be stored in an object with name:score as k:v
 const shuffled = ""; //initializes random question order
 let currentQuestionIndex; //initializes index to find out which question we're on
-const currentQuestion = document.getElementById('quiz-question');//current question div
+const currentQuestion = document.getElementById('current-question');//current question div
 const answerButtons = document.getElementById('quiz-answers'); //current answer button selection div
-let quizData = [];
+let quizData;
 
 
+//load quiz data
+
+function loadQuiz() {
+    //quizIntro.style.display = 'none';
+    fetch(url) //found out how to do this promise on stackoverflow and youtube
+    .then(res => res.json())
+    .then(data => {
+        quizData = JSON.parse(JSON.stringify(data));
+        console.log(quizData);
+  })
+    .catch(error => console.error(error));
+
+}
+window.addEventListener('load', loadQuiz);
 startQuiz.addEventListener('click', gameStart)
 
 
 
 function gameStart() {
     //show questions
-    //toggle(quizIntro);
+
+    toggle(quizIntro);
     //quizIntro.classList.add('d-none')
-    eleChecker(questionContainer);
     pageNextQuestion();
     //questionContainer.classList.remove('d-none');
-    console.log('ready');
-    loadQuiz();
     timer.style.color = ""; //reset color
     //startGame();
     //timeRemaining();
     countDown(initialTime);
-    console.log(quizData);
     currentQuestionIndex = 0;
     //nextQuestion();
 
@@ -49,8 +60,9 @@ version 2.0?
 }
 */
 
-function nextQuestion(question) {
-    currentQuestion.innerText = quizData.question;
+function nextQuestion() {
+    currentQuestion.textContent = quizData[currentQuestion].question;
+    currentQuestionIndex++;
 }
 
 
@@ -66,17 +78,8 @@ function addToHighScore() {
 
 
 
-//load quiz data
-function loadQuiz() {
-    quizIntro.style.display = 'none';
-    fetch(url) //found out how to do this promise on stackoverflow and youtube
-    .then(res => res.json())
-    .then(data => {
-        quizData = Array.from(data);
-  })
-    .catch(error => console.error(error));
 
-}
+
 
 //timer
 
