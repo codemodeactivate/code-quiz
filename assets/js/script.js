@@ -64,7 +64,7 @@ version 2.0?
 
 function nextQuestion() {
     var currentQuestion = quizData.quiz[currentQuestionIndex]; //initialize and get current question
-    questionContainer.textContent = currentQuestion.question; //update question text
+    questionContainer.innerHTML = `<p class="h5 fw-normal">` + currentQuestion.question + `</p>`; //update question text
     currentQuestion.choices.forEach(function(choice, index){
         var choiceEle = document.createElement('button');
         choiceEle.setAttribute('class', 'btn btn-primary');
