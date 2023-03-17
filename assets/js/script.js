@@ -4,7 +4,7 @@ const quizContainer = document.getElementById("quiz-container"); //quiz area
 const quizIntro = document.getElementById("quiz-intro"); //quiz introduction area
 const questionContainer = document.getElementById("question-container");//question & answer area
 var initialTime = 10; //initial gametime. maybe make this variable for hard mode later?
-const url= './assets/js/questions.json'; //question bank - no cheating!
+const url = './assets/js/questions.json'; //question bank - no cheating!
 const corsUrl = `https://cors-anywhere.herokuapp.com/${url}`; //json workaround?
 let currentScore; //initialize currentScore
 let highScores = {}; //initialize high scores to later be stored in an object with name:score as k:v
@@ -15,11 +15,126 @@ const answerButtons = document.getElementById('quiz-answers'); //current answer 
 let quizData;
 const answerPreview = document.getElementById("answer-preview");
 
+let answerButton = document.querySelector('.choice');
+
+
+let tempQuizData = {
+    "quiz": [
+      {
+        "question": "What is JavaScript?",
+        "choices": [
+          "A programming language for web development",
+          "A markup language for web development",
+          "A database management system",
+          "A browser extension"
+        ],
+        "answer": "A programming language for web development"
+      },
+      {
+        "question": "What is a variable?",
+        "choices": [
+          "A container for storing data values",
+          "A function that returns a value",
+          "A conditional statement",
+          "A loop structure"
+        ],
+        "answer": "A container for storing data values"
+      },
+      {
+        "question": "What is a function?",
+        "choices": [
+          "A set of instructions that performs a specific task",
+          "A type of variable",
+          "A loop structure",
+          "An event listener"
+        ],
+        "answer": "A set of instructions that performs a specific task"
+      },
+      {
+        "question": "What is the DOM?",
+        "choices": [
+          "The Document Object Model",
+          "The Desktop Object Manager",
+          "The Database Object Model",
+          "The Digital Output Manager"
+        ],
+        "answer": "The Document Object Model"
+      },
+      {
+        "question": "What is an array?",
+        "choices": [
+          "A special variable that can hold multiple values",
+          "A type of function",
+          "A conditional statement",
+          "A loop structure"
+        ],
+        "answer": "A special variable that can hold multiple values"
+      },
+      {
+        "question": "What is a loop?",
+        "choices": [
+          "A programming structure that repeats a sequence of instructions",
+          "A type of function",
+          "A conditional statement",
+          "An event listener"
+        ],
+        "answer": "A programming structure that repeats a sequence of instructions"
+      },
+      {
+        "question": "What is an if statement?",
+        "choices": [
+          "A programming structure that executes code if a specified condition is true",
+          "A type of function",
+          "A loop structure",
+          "An event listener"
+        ],
+        "answer": "A programming structure that executes code if a specified condition is true"
+      },
+      {
+        "question": "What is a boolean?",
+        "choices": [
+          "A data type that can be either true or false",
+          "A type of function",
+          "A loop structure",
+          "An event listener"
+        ],
+        "answer": "A data type that can be either true or false"
+      },
+      {
+        "question": "What is the difference between == and ===?",
+        "choices": [
+          "== only compares values, while === compares both values and types",
+          "== and === are identical in their function and purpose",
+          "== only compares types, while === compares both types and values",
+          "== only works with strings, while === works with all data types"
+        ],
+        "answer": "== only compares values, while === compares both values and types"
+      },
+      {
+        "question": "What is console.log() used for?",
+        "choices": [
+          "Printing output to the console",
+          "Executing a loop",
+          "Creating an event listener",
+          "Storing data in a variable"
+        ],
+        "answer": "Printing output to the console"
+      }
+    ]
+  }
+
+
+
+
 
 //load quiz data
 
 function loadQuiz() {
     //quizIntro.style.display = 'none';
+
+    quizData = ((tempQuizData))
+
+    /* When I figure out this corsanywhere thing maybe I'll reenable the fancy solution. Was working when deployed but not locally for testing.
     fetch(url) //found out how to do this promise on stackoverflow and youtube
     .then(res => res.json())
     .then(data => {
@@ -27,10 +142,14 @@ function loadQuiz() {
         console.log(quizData);
   })
     .catch(error => console.error(error));
+    */
 
 }
+
 window.addEventListener('load', loadQuiz);
 startQuiz.addEventListener('click', gameStart)
+
+answerButton.addEventListener('click', answerSelected)
 
 
 
@@ -51,8 +170,18 @@ function gameStart() {
 
 }
 
-function answerSelected() {
-
+function answerSelected(e) {
+    const selectedAnswer = e.target.value;
+    const correctAnswer = quizData.quiz[currentQuestionIndex].answer;
+    if (selectedAnswer === correctAnswer) {
+      if (currentQuestionIndex < quizData.quiz.length - 1) {
+        currentQuestionIndex++;
+        nextQuestion();
+      } else {
+        // end quiz and show score
+        // ...
+      }
+    }
 
 }
 
@@ -65,9 +194,10 @@ version 2.0?
 function nextQuestion() {
     var currentQuestion = quizData.quiz[currentQuestionIndex]; //initialize and get current question
     questionContainer.innerHTML = `<p class="h5 fw-normal">` + currentQuestion.question + `</p>`; //update question text
+    answerButtons.innerHTML = ''; // clear previous answer buttons
     currentQuestion.choices.forEach(function(choice, index){
         var choiceEle = document.createElement('button');
-        choiceEle.setAttribute('class', 'btn btn-primary');
+        choiceEle.setAttribute('class', 'btn btn-primary choice');
         choiceEle.setAttribute('value', choice);
         choiceEle.textContent = choice;
         answerButtons.appendChild(choiceEle);
