@@ -8,14 +8,14 @@ const url = './assets/js/questions.json'; //question bank - no cheating!
 const corsUrl = `https://cors-anywhere.herokuapp.com/${url}`; //json workaround?
 let currentScore; //initialize currentScore
 let highScores = {}; //initialize high scores to later be stored in an object with name:score as k:v
-const shuffled = ""; //initializes random question order
+//const shuffled = ""; //initializes random question order
 let currentQuestionIndex = 0; //initializes index to find out which question we're on
 const currentQuestion = document.getElementById('current-question');//current question div
 const answerButtons = document.getElementById('quiz-answers'); //current answer button selection div
 let quizData;
 const answerPreview = document.getElementById("answer-preview");
 
-let answerButton = document.querySelector('.choice');
+let answerButton = document.querySelectorAll('.choice');
 
 
 let tempQuizData = {
@@ -132,7 +132,7 @@ let tempQuizData = {
 function loadQuiz() {
     //quizIntro.style.display = 'none';
 
-    quizData = ((tempQuizData))
+    quizData = tempQuizData;
 
     /* When I figure out this corsanywhere thing maybe I'll reenable the fancy solution. Was working when deployed but not locally for testing.
     fetch(url) //found out how to do this promise on stackoverflow and youtube
@@ -149,33 +149,40 @@ function loadQuiz() {
 window.addEventListener('load', loadQuiz);
 startQuiz.addEventListener('click', gameStart)
 
-answerButton.addEventListener('click', answerSelected)
+
 
 
 
 function gameStart() {
     //show questions
 
-    toggle(quizIntro);
+    toggle(quizIntro); //hide coding quiz challenge, try to answer, + start button
     //quizIntro.classList.add('d-none')
-    pageNextQuestion();
+    nextQuestion();
+    pageNextQuestion(); //load in next question - ex. What is JavaScript?
     //questionContainer.classList.remove('d-none');
-    timer.style.color = ""; //reset color
+    timer.style.color = ""; //reset color of timer to default
     //startGame();
     //timeRemaining();
-    countDown(initialTime);
-    currentQuestionIndex = 0;
-    nextQuestion();
-    toggle(answerPreview);
+    countDown(initialTime); //starts timer off @ initial time
+
+    //answerButton.addEventListener("click", pageNextQuestion);
+
+    //toggle(answerPreview);
 
 }
+
+answerButton.addEventListener('click', answerSelected)
 
 function answerSelected(e) {
     const selectedAnswer = e.target.value;
     const correctAnswer = quizData.quiz[currentQuestionIndex].answer;
     if (selectedAnswer === correctAnswer) {
       if (currentQuestionIndex < quizData.quiz.length - 1) {
+        console.log(currentQuestionIndex);
         currentQuestionIndex++;
+
+
         nextQuestion();
       } else {
         // end quiz and show score
@@ -192,8 +199,8 @@ version 2.0?
 */
 
 function nextQuestion() {
-    var currentQuestion = quizData.quiz[currentQuestionIndex]; //initialize and get current question
-    questionContainer.innerHTML = `<p class="h5 fw-normal">` + currentQuestion.question + `</p>`; //update question text
+    var currentQuestion = quizData.quiz[currentQuestionIndex]; //initialize and then also gets next question
+    questionContainer.innerHTML = `<p class="h5 fw-normal fs-2 text-start mb-3">` + currentQuestion.question + `</p>`; //update question text
     answerButtons.innerHTML = ''; // clear previous answer buttons
     currentQuestion.choices.forEach(function(choice, index){
         var choiceEle = document.createElement('button');
@@ -204,12 +211,13 @@ function nextQuestion() {
     })
 
 
-    currentQuestionIndex++; //+1!
+
 
 }
 
 
 function pageNextQuestion() {
+
     toggle(questionContainer);
 
 }
