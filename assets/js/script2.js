@@ -110,6 +110,7 @@ const startBtn = document.getElementById("start-quiz");
 const questionText = document.createElement("p");
 const choicesList = document.createElement("ul");
 const quizIntro = document.getElementById("quiz-intro"); // Intro test + start game button
+const currentQuestion = document.getElementById("current-question")//placeholder for current question
 
 
 function timerStart() {
@@ -143,20 +144,34 @@ function pageNextQuestion() {
     questionText.innerText = currentQuestion.question;
     questionContainer.appendChild(questionText);
 
-    // Loop through the possible answer choices and add them to the HTML
-    const answerChoices = currentQuestion.choices;
-    for (let i = 0; i < answerChoices.length; i++) {
-      const choice = answerChoices[i];
-      const choiceItem = document.createElement("li");
-      const choiceBtn = document.createElement("button");
-      choiceBtn.innerText = choice;
-      choiceItem.appendChild(choiceBtn);
-      choicesList.appendChild(choiceItem);
-    }
-    questionContainer.appendChild(choicesList);
+  // Loop through the possible answer choices and add them to the HTML
+  const answerChoices = currentQuestion.choices;
+  choicesList.innerHTML = ""; // remove old choices
+  for (let i = 0; i < answerChoices.length; i++) {
+    const choice = answerChoices[i];
+    const choiceItem = document.createElement("li");
+    const choiceBtn = document.createElement("button");
+    choiceBtn.innerText = choice;
+    choiceBtn.addEventListener("click", pageNextQuestion); // add event listener to next question
+    choiceItem.appendChild(choiceBtn);
+    choicesList.appendChild(choiceItem);
+  }
+  questionContainer.appendChild(choicesList);
 
     // Increment the current question index for the next question
     currentQuestionIndex++;
+
+    // Remove the previous question and choices
+    if (currentQuestionIndex > 1) {
+        const previousQuestion = quizQuestions[currentQuestionIndex - 2];
+        const previousChoicesList = document.querySelectorAll("#quiz-container ul");
+        const previousChoiceBtns = document.querySelectorAll("#quiz-container button");
+        previousQuestion.choices.forEach((choice, i) => {
+        previousChoiceBtns[i].removeEventListener("click", pageNextQuestion); // remove previous event listener
+        });
+        previousChoicesList[previousChoicesList.length - 1].remove(); // remove previous choices
+        previousQuestion.question = ""; // remove previous question
+    }
   }
 
 
@@ -170,6 +185,7 @@ startBtn.addEventListener("click", function() {
     toggle(quizIntro);
     timerStart();
     pageNextQuestion();
+    //toggle(currentQuestion)
 
 
 
