@@ -112,12 +112,18 @@ const choicesList = document.createElement("div");
 const quizIntro = document.getElementById("quiz-intro"); // Intro test + start game button
 const currentQuestion = document.getElementById("current-question");//placeholder for current question
 const quizAnswers = document.getElementById("quiz-answers");
+let timeOff = 8 //initial penalty is 8 sec. setting timeoff = penaltytime so later i can add easy/medium/hard modes perhaps.
+const penaltyTime = timeOff
+let timeLeft = 60;
+var userName;
+var userScore;
+const status = document.getElementById("ans-status")
+var questAnswered = 0;
 
 function timerStart() {
-let timeLeft = 60;
 const countdownTimer = setInterval(() => {
   timeLeft--;
-  document.getElementById('timer').textContent = timeLeft;
+  document.getElementById('timer').innerHTML = `${timeLeft}`;
   if (timeLeft <= 0) {
     clearInterval(countdownTimer);
     // Do something when the timer ends, such as show the user's score
@@ -169,11 +175,30 @@ function pageNextQuestion() {
 
       choiceBtn.addEventListener("click", function() {
         // Get the next question index
+
+        //add logic if correct answer move do nothing. if wrong answer, subtract penalty number from timer. later will add the flash of text shown in gif
+
+        if (currentQuestion.answer === choiceBtn.value) {
+            console.log("CORRECT");
+            questAnswered +=1;
+            console.log("quest answered" + questAnswered);
+            console.log(quizQuestions.length)
+
+        } else {
+            console.log("INCORRECT");
+            timeLeft = timeLeft - penaltyTime;
+            questAnswered +=1;
+            console.log("quest answered" + questAnswered);
+
+
+        }
+
+
         const nextQuestionIndex = currentQuestionIndex + 1;
 
         // adding in logic to see if there are more questions to restart/callback function
         if (nextQuestionIndex >= quizQuestions.length) {
-          displayResults();
+
           return;
         }
 
@@ -181,10 +206,18 @@ function pageNextQuestion() {
         currentQuestionIndex = nextQuestionIndex;
         pageNextQuestion();
       });
+
     }
+
   }
 
 
+function displayResults() {
+
+    console.log("GAMEOVER");
+
+
+}
 
 
 
