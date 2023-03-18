@@ -110,8 +110,8 @@ const startBtn = document.getElementById("start-quiz");
 const questionText = document.createElement("p");
 const choicesList = document.createElement("ul");
 const quizIntro = document.getElementById("quiz-intro"); // Intro test + start game button
-const currentQuestion = document.getElementById("current-question")//placeholder for current question
-
+const currentQuestion = document.getElementById("current-question");//placeholder for current question
+const quizAnswers = document.getElementById("quiz-answers");
 
 function timerStart() {
 let timeLeft = 60;
@@ -135,45 +135,47 @@ function toggle(element) {
 }
 
 
+//const currentQuestion = document.getElementById("current-question");//placeholder for current question
+//const quizAnswers = document.getElementById("quiz-answers");
+
 function pageNextQuestion() {
     // Get the quiz question from the quiz object based on the current question index
     const quizQuestions = quiz.quiz;
     const currentQuestion = quizQuestions[currentQuestionIndex];
 
     // Update the question text in the HTML
-    questionText.innerText = currentQuestion.question;
+    questionText.innerHTML = `<p class="h5 fw-normal fs-2 text-start mb-3">` + currentQuestion.question + `</p>`;
     questionContainer.appendChild(questionText);
 
-  // Loop through the possible answer choices and add them to the HTML
-  const answerChoices = currentQuestion.choices;
-  choicesList.innerHTML = ""; // remove old choices
-  for (let i = 0; i < answerChoices.length; i++) {
-    const choice = answerChoices[i];
-    const choiceItem = document.createElement("li");
-    const choiceBtn = document.createElement("button");
-    choiceBtn.innerText = choice;
-    choiceBtn.addEventListener("click", pageNextQuestion); // add event listener to next question
-    choiceItem.appendChild(choiceBtn);
-    choicesList.appendChild(choiceItem);
-  }
-  questionContainer.appendChild(choicesList);
+    // Add the choices list element to the HTML
+    questionContainer.appendChild(choicesList);
 
-    // Increment the current question index for the next question
-    currentQuestionIndex++;
+    // Loop through the possible answer choices and add them to the HTML
+    const answerChoices = currentQuestion.choices;
+    choicesList.innerHTML = ''; // clear any previous choices
+    for (let i = 0; i < answerChoices.length; i++) {
+      const choice = answerChoices[i];
+      const choiceItem = document.createElement("li");
+      const choiceBtn = document.createElement("button");
+      choiceBtn.innerText = choice;
+      choiceItem.appendChild(choiceBtn);
+      choicesList.appendChild(choiceItem);
+      choiceBtn.addEventListener("click", function() {
+        // Get the next question index
+        const nextQuestionIndex = currentQuestionIndex + 1;
 
-    // Remove the previous question and choices
-    if (currentQuestionIndex > 1) {
-        const previousQuestion = quizQuestions[currentQuestionIndex - 2];
-        const previousChoicesList = document.querySelectorAll("#quiz-container ul");
-        const previousChoiceBtns = document.querySelectorAll("#quiz-container button");
-        previousQuestion.choices.forEach((choice, i) => {
-        previousChoiceBtns[i].removeEventListener("click", pageNextQuestion); // remove previous event listener
-        });
-        previousChoicesList[previousChoicesList.length - 1].remove(); // remove previous choices
-        previousQuestion.question = ""; // remove previous question
+        // adding in logic to see if there are more questions to restart/callback function
+        if (nextQuestionIndex >= quizQuestions.length) {
+          displayResults();
+          return;
+        }
+
+        // Otherwise, load the next question and answer choices
+        currentQuestionIndex = nextQuestionIndex;
+        pageNextQuestion();
+      });
     }
   }
-
 
 
 
