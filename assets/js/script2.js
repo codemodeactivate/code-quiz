@@ -108,7 +108,7 @@ const questionContainer = document.getElementById("quiz-container"); //where the
 let currentQuestionIndex = 0; //initialize current question
 const startBtn = document.getElementById("start-quiz");
 const questionText = document.createElement("p");
-const choicesList = document.createElement("ul");
+const choicesList = document.createElement("div");
 const quizIntro = document.getElementById("quiz-intro"); // Intro test + start game button
 const currentQuestion = document.getElementById("current-question");//placeholder for current question
 const quizAnswers = document.getElementById("quiz-answers");
@@ -155,11 +155,18 @@ function pageNextQuestion() {
     choicesList.innerHTML = ''; // clear any previous choices
     for (let i = 0; i < answerChoices.length; i++) {
       const choice = answerChoices[i];
-      const choiceItem = document.createElement("li");
+      const choiceItem = document.createElement("p");
       const choiceBtn = document.createElement("button");
+      choiceItem.setAttribute('class', 'text-left');
+      choiceBtn.setAttribute('class', 'btn btn-primary choice answer-choice');
+      choiceBtn.setAttribute('value', choice);
       choiceBtn.innerText = choice;
       choiceItem.appendChild(choiceBtn);
+      choicesList.setAttribute('class', 'd-flex flex-column justify-content-start text-start')
       choicesList.appendChild(choiceItem);
+
+
+
       choiceBtn.addEventListener("click", function() {
         // Get the next question index
         const nextQuestionIndex = currentQuestionIndex + 1;
