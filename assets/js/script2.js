@@ -258,7 +258,7 @@ function pageNextQuestion() {
 
 
 function displayResults() {
-
+const gameOverButton = document.getElementById("game-over-submit");
     console.log("GAMEOVER");
     qStatus.innerHTML = "Gameover";
     //toggle(quizQuestionEle);
@@ -269,15 +269,16 @@ function displayResults() {
                                 <div class="col-12">
 
                                   <h4 class="text-start ps-5">ALL DONE!</h4>
-                                  <p class="fs-3 text-start ps-5">Your Final Score is ${userScore}</p>
-                                  <p class="fs-3 text-start ps-5">Enter Initials: <input type="text"> <button class="btn btn-primary">Submit</button>
+                                  <p class="fs-3 text-start ps-5">Your Final Score is ${userScore}!</p>
+                                  <div class="d-flex align-items-center">
+                                    <p class="fs-3 text-start ps-5">Enter Initials: <form method="POST"><input type="text" class="m-1"><button id="game-over-submit" class="btn btn-primary m-1">Submit</button></form>
+                                  </div>
 
-                                  </div>
-                                  </div>
+                                </div>
+                                </div>
                                 </div>`;
 
-
-
+//gameOverButton.addEventListener("click", submitHighScore(userName, userScore))
 }
 
 
