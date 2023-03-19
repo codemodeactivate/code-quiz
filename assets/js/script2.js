@@ -302,13 +302,13 @@ form.addEventListener('submit', function(event) {
 
   var highScoresString = JSON.stringify(highScores);
   localStorage.setItem('highScores', highScoresString);
-
+  var highScoreInstance = new bootstrap.Modal(regModal);
   //highScores = JSON.parse(highScoresString);
   quizQuestionEle.innerHTML = "";
 
   displayHighScores();
 
-  //highScoreInstance.show();
+  highScoreInstance.show();
 
 });
 
