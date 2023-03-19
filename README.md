@@ -20,6 +20,9 @@ Coding assessments are an important part of the interview process for developers
 - [X] Add a leader board
 - [ ] Add a go back & clear high scores button to the high scores modal
 - [ ] Add screenshot to satisfy grading criteria
+- [ ] Limit high score to top 10
+- [ ] Sort top 10
+- [ ] Add rest of scoring formula/make a scoring formula
 ## Notes
 
 
