@@ -115,9 +115,9 @@ const currentQuestionEle = document.getElementById("current-question");//placeho
 const quizAnswers = document.getElementById("quiz-answers");
 let timeOff = 8 //initial penalty is 8 sec. setting timeoff = penaltytime so later i can add easy/medium/hard modes perhaps.
 const penaltyTime = timeOff
-let timeLeft = 60;
+let timeLeft = 10;
 var userName;
-var userScore;
+var userScore = 0;
 var highScores = {}
 const qStatus = document.getElementById("ans-status")
 var questAnswered = 0;
@@ -135,6 +135,8 @@ const countdownTimer = setInterval(() => {
   if (timeLeft <= 0) {
     clearInterval(countdownTimer);
     // Do something when the timer ends, such as show the user's score
+    document.getElementById('timer').innerHTML = "0"; //prevent score from going negative.
+    displayResults();
   }
 }, 1000);
 }
@@ -168,7 +170,10 @@ function pageNextQuestion() {
 
     // Add the choices list element to the HTML
    currentQuestionEle.appendChild(choicesList);
-
+    if (timeLeft <= 0) {
+      timeLeft.innerHTML = "0"; //in case the time goes negative.
+      displayResults();
+    }
 
     // Loop through the possible answer choices and add them to the HTML
     const answerChoices = currentQuestion.choices;
@@ -196,12 +201,17 @@ function pageNextQuestion() {
         } else {
           qStatus.innerHTML = "INCORRECT!";
         }
-
+        //Formula for handling the score//
+        //Correct answer = 10 points
+        //Incorrect answer = 8 second penalty
+        //Final Score = sum(points) + (time_left * 30)
 
         if (currentQuestion.answer === choiceBtn.value) {
             //console.log("CORRECT");
             qStatus.innerHTML = "CORRECT!";
+            userScore += 10;
             questAnswered +=1;
+            console.log(userScore);
            // console.log("quest answered" + questAnswered);
             //console.log(quizQuestions.length)
             //I like the idea of the answer validity being flashed instead of remaining as in the example gif. I commented it out, but would choose to include this if it
@@ -215,6 +225,7 @@ function pageNextQuestion() {
             //console.log("INCORRECT");
             timeLeft = timeLeft - penaltyTime;
             qStatus.innerHTML = "INCORRECT!";
+            console.log(userScore);
             questAnswered +=1;
 
             //I like the idea of the answer validity being flashed instead of remaining as in the example gif. I commented it out, but would choose to include this if it
@@ -233,7 +244,7 @@ function pageNextQuestion() {
         if (nextQuestionIndex >= quizQuestions.length) {
 
           displayResults();
-
+          return;
         }
 
         // Otherwise, load the next question and answer choices
@@ -250,6 +261,7 @@ function displayResults() {
 
     console.log("GAMEOVER");
     qStatus.innerHTML = "Gameover";
+
 
 
 }
