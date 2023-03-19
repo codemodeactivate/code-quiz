@@ -116,10 +116,10 @@ const quizAnswers = document.getElementById("quiz-answers");
 let timeOff = 8 //initial penalty is 8 sec. setting timeoff = penaltytime so later i can add easy/medium/hard modes perhaps.
 const penaltyTime = timeOff
 let timeLeft = 10;
-
+var highScores = {};
 var userScore = 0;
-var highScores = {}
-const qStatus = document.getElementById("ans-status")
+const regModal = document.getElementById('reg-modal');
+const qStatus = document.getElementById("ans-status");
 var questAnswered = 0;
 
 
@@ -285,7 +285,15 @@ form.addEventListener('submit', function(event) {
   initials = document.getElementById('initials').value;
   highScores[initials] = userScore;
   console.log(highScores);
+  var highScoresString = JSON.stringify(highScores);
+  localStorage.setItem('highScores', highScoresString);
+  highScores = JSON.parse(highScoresString);
+  quizQuestionEle.innerHTML = "";
+  var highScoreInstance = new bootstrap.Modal(regModal);
+  highScoreInstance.show();
 });
+
+
 
 }
 
