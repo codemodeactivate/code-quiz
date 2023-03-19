@@ -116,7 +116,7 @@ const quizAnswers = document.getElementById("quiz-answers");
 let timeOff = 8 //initial penalty is 8 sec. setting timeoff = penaltytime so later i can add easy/medium/hard modes perhaps.
 const penaltyTime = timeOff
 let timeLeft = 10;
-var userName;
+var initials;
 var userScore = 0;
 var highScores = {}
 const qStatus = document.getElementById("ans-status")
@@ -271,15 +271,23 @@ const gameOverButton = document.getElementById("game-over-submit");
                                   <h4 class="text-start ps-5">ALL DONE!</h4>
                                   <p class="fs-3 text-start ps-5">Your Final Score is ${userScore}!</p>
                                   <div class="d-flex align-items-center">
-                                    <p class="fs-3 text-start ps-5">Enter Initials: <form method="POST"><input type="text" class="m-1"><button id="game-over-submit" class="btn btn-primary m-1">Submit</button></form>
+                                    <p class="fs-3 text-start ps-5"><label for="initials">Enter Initials:</label><form method="POST" id="high-score-form"><input type="text" name="initials" id="initials" class="m-1"><button id="game-over-submit" class="btn btn-primary m-1">Submit</button></form>
                                   </div>
 
                                 </div>
                                 </div>
                                 </div>`;
 
-//gameOverButton.addEventListener("click", submitHighScore(userName, userScore))
+const form = document.getElementById('high-score-form');
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  console.log("HIGH SCORE THING");
+});
+
 }
+
+
+
 
 
 
