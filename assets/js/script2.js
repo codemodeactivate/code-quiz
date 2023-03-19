@@ -263,9 +263,18 @@ function displayResults() {
     qStatus.innerHTML = "Gameover";
     //toggle(quizQuestionEle);
     quizQuestionEle.innerHTML = "";
-    quizQuestionEle.innerHTML = `<h4 class="text-center">ALL DONE!</h4>
-                                 <p class="fs-3 text-center">Your Final Score is ${userScore}</p>
-                                 <p class="fs-3 text-center">Enter Initials: <input type="text"> <button class="btn btn-primary">Submit</button>`;
+    quizQuestionEle.innerHTML = `
+                                <div class="container">
+                                <div class="row">
+                                <div class="col-12">
+
+                                  <h4 class="text-start ps-5">ALL DONE!</h4>
+                                  <p class="fs-3 text-start ps-5">Your Final Score is ${userScore}</p>
+                                  <p class="fs-3 text-start ps-5">Enter Initials: <input type="text"> <button class="btn btn-primary">Submit</button>
+
+                                  </div>
+                                  </div>
+                                </div>`;
 
 
 
