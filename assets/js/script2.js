@@ -1,3 +1,5 @@
+var highScores = JSON.parse(localStorage.getItem('highScores')) || {};
+
 const quiz =
 {
     "quiz": [
@@ -116,12 +118,19 @@ const quizAnswers = document.getElementById("quiz-answers");
 let timeOff = 8 //initial penalty is 8 sec. setting timeoff = penaltytime so later i can add easy/medium/hard modes perhaps.
 const penaltyTime = timeOff
 let timeLeft = 10;
-var highScores = {};
 var userScore = 0;
 const regModal = document.getElementById('reg-modal');
 const qStatus = document.getElementById("ans-status");
 var questAnswered = 0;
 const highScoreModal = document.getElementById('high-score-modal');
+
+const viewHighScoresLink = document.getElementById('view-high-scores');
+viewHighScoresLink.addEventListener("click", displayHighScores);
+
+
+
+
+
 
 //Formula for handling the score//
 //Correct answer = 10 points
@@ -211,7 +220,7 @@ function pageNextQuestion() {
             qStatus.innerHTML = "CORRECT!";
             userScore += 10;
             questAnswered +=1;
-            console.log(userScore);
+
            // console.log("quest answered" + questAnswered);
             //console.log(quizQuestions.length)
             //I like the idea of the answer validity being flashed instead of remaining as in the example gif. I commented it out, but would choose to include this if it
@@ -225,7 +234,7 @@ function pageNextQuestion() {
             //console.log("INCORRECT");
             timeLeft = timeLeft - penaltyTime;
             qStatus.innerHTML = "INCORRECT!";
-            console.log(userScore);
+
             questAnswered +=1;
 
             //I like the idea of the answer validity being flashed instead of remaining as in the example gif. I commented it out, but would choose to include this if it
@@ -256,10 +265,10 @@ function pageNextQuestion() {
 
   }
 
-
+var highScoresString = localStorage.getItem('highScores');
 function displayResults() {
 
-    console.log("GAMEOVER");
+
     qStatus.innerHTML = "Gameover";
     //toggle(quizQuestionEle);
     quizQuestionEle.innerHTML = "";
@@ -279,19 +288,17 @@ function displayResults() {
                                 </div>`;
 
 const form = document.getElementById('high-score-form');
+
 form.addEventListener('submit', function(event) {
   event.preventDefault();
-  console.log("HIGH SCORE THING");
 
-  var highScoresString = localStorage.getItem('highScores');
-  var highScores = JSON.parse(highScoresString) || {};
 
+ // var highScores = JSON.parse(highScoresString) || {};
 
   initials = document.getElementById('initials').value;
 
-
   highScores[initials] = userScore;
-  console.log(highScores);
+
 
   var highScoresString = JSON.stringify(highScores);
   localStorage.setItem('highScores', highScoresString);
@@ -299,18 +306,23 @@ form.addEventListener('submit', function(event) {
   //highScores = JSON.parse(highScoresString);
   quizQuestionEle.innerHTML = "";
 
-  var highScoreInstance = new bootstrap.Modal(regModal);
-  highScoreModal.innerHTML = `${highScoresString.initials} - ${highScoresString.userScore}`;
-  highScoreInstance.show();
+  displayHighScores();
 
+  //highScoreInstance.show();
 
 });
 
-
-
 }
 
+function displayHighScores() {
+  highScores = JSON.parse(highScoresString);
+  var highScoreInstance = new bootstrap.Modal(regModal);
+  var scoreBoard = Object.entries(highScores).map(([initials, userScore]) =>
+  `${initials} - ${userScore}`).join("<br>");
+  highScoreModal.innerHTML = scoreBoard;
+  highScoreInstance.show();
 
+}
 
 
 

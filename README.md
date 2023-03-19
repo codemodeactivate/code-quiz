@@ -13,12 +13,13 @@ Coding assessments are an important part of the interview process for developers
 
 ## To-Do
 
-- [ ] Build Skeleton HTML & CSS
-- [ ] Make bank of quiz questions and answers
-- [ ] Add timer component
-- [ ] Add a way to keep track of high scores
-- [ ] Add a leader board
-
+- [X] Build Skeleton HTML & CSS
+- [X] Make bank of quiz questions and answers
+- [X] Add timer component
+- [X] Add a way to keep track of high scores
+- [X] Add a leader board
+- [ ] Add a go back & clear high scores button to the high scores modal
+- [ ] Add screenshot to satisfy grading criteria
 ## Notes
 
 
