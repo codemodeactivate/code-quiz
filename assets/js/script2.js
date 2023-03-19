@@ -121,7 +121,7 @@ var userScore = 0;
 const regModal = document.getElementById('reg-modal');
 const qStatus = document.getElementById("ans-status");
 var questAnswered = 0;
-
+const highScoreModal = document.getElementById('high-score-modal');
 
 //Formula for handling the score//
 //Correct answer = 10 points
@@ -282,15 +282,28 @@ const form = document.getElementById('high-score-form');
 form.addEventListener('submit', function(event) {
   event.preventDefault();
   console.log("HIGH SCORE THING");
+
+  var highScoresString = localStorage.getItem('highScores');
+  var highScores = JSON.parse(highScoresString) || {};
+
+
   initials = document.getElementById('initials').value;
+
+
   highScores[initials] = userScore;
   console.log(highScores);
+
   var highScoresString = JSON.stringify(highScores);
   localStorage.setItem('highScores', highScoresString);
-  highScores = JSON.parse(highScoresString);
+
+  //highScores = JSON.parse(highScoresString);
   quizQuestionEle.innerHTML = "";
+
   var highScoreInstance = new bootstrap.Modal(regModal);
+  highScoreModal.innerHTML = `${highScoresString.initials} - ${highScoresString.userScore}`;
   highScoreInstance.show();
+
+
 });
 
 
