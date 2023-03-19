@@ -149,6 +149,11 @@ function toggle(element) {
 }
 
 
+
+
+
+
+
 //const currentQuestion = document.getElementById("current-question");//placeholder for current question
 //const quizAnswers = document.getElementById("quiz-answers");
 
@@ -163,6 +168,7 @@ function pageNextQuestion() {
 
     // Add the choices list element to the HTML
    currentQuestionEle.appendChild(choicesList);
+
 
     // Loop through the possible answer choices and add them to the HTML
     const answerChoices = currentQuestion.choices;
@@ -185,20 +191,39 @@ function pageNextQuestion() {
         // Get the next question index
 
         //add logic if correct answer move do nothing. if wrong answer, subtract penalty number from timer. later will add the flash of text shown in gif
+        if(currentQuestion.answer === choiceBtn.value) {
+          qStatus.innerHTML = "CORRECT!";
+        } else {
+          qStatus.innerHTML = "INCORRECT!";
+        }
+
 
         if (currentQuestion.answer === choiceBtn.value) {
-            console.log("CORRECT");
+            //console.log("CORRECT");
+            qStatus.innerHTML = "CORRECT!";
             questAnswered +=1;
-            console.log("quest answered" + questAnswered);
-            console.log(quizQuestions.length)
-
+           // console.log("quest answered" + questAnswered);
+            //console.log(quizQuestions.length)
+            //I like the idea of the answer validity being flashed instead of remaining as in the example gif. I commented it out, but would choose to include this if it
+            //were my own design
+            /*
+            setTimeout(() => {
+              qStatus.innerHTML = "";
+              }, 500);
+              */
         } else {
-            console.log("INCORRECT");
+            //console.log("INCORRECT");
             timeLeft = timeLeft - penaltyTime;
+            qStatus.innerHTML = "INCORRECT!";
             questAnswered +=1;
-            console.log("quest answered" + questAnswered);
 
-
+            //I like the idea of the answer validity being flashed instead of remaining as in the example gif. I commented it out, but would choose to include this if it
+            //were my own design
+            //console.log("quest answered" + questAnswered);
+            /*setTimeout(() => {
+              qStatus.innerHTML = "";
+              }, 500);
+              */
         }
 
 
@@ -208,7 +233,7 @@ function pageNextQuestion() {
         if (nextQuestionIndex >= quizQuestions.length) {
 
           displayResults();
-          return;
+
         }
 
         // Otherwise, load the next question and answer choices
