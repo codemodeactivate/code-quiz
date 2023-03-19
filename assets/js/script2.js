@@ -116,7 +116,7 @@ const quizAnswers = document.getElementById("quiz-answers");
 let timeOff = 8 //initial penalty is 8 sec. setting timeoff = penaltytime so later i can add easy/medium/hard modes perhaps.
 const penaltyTime = timeOff
 let timeLeft = 10;
-var initials;
+
 var userScore = 0;
 var highScores = {}
 const qStatus = document.getElementById("ans-status")
@@ -258,7 +258,7 @@ function pageNextQuestion() {
 
 
 function displayResults() {
-const gameOverButton = document.getElementById("game-over-submit");
+
     console.log("GAMEOVER");
     qStatus.innerHTML = "Gameover";
     //toggle(quizQuestionEle);
@@ -282,6 +282,9 @@ const form = document.getElementById('high-score-form');
 form.addEventListener('submit', function(event) {
   event.preventDefault();
   console.log("HIGH SCORE THING");
+  initials = document.getElementById('initials').value;
+  highScores[initials] = userScore;
+  console.log(highScores);
 });
 
 }
