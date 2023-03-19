@@ -261,6 +261,9 @@ function displayResults() {
 
     console.log("GAMEOVER");
     qStatus.innerHTML = "Gameover";
+    toggle(quizQuestionEle);
+    questionContainer.innerHTML = `<p>ALL DONE!</p>
+                                    <p>Your Final Score is ${userScore}</p>`;
 
 
 
