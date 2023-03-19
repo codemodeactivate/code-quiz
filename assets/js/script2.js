@@ -117,7 +117,7 @@ const currentQuestionEle = document.getElementById("current-question");//placeho
 const quizAnswers = document.getElementById("quiz-answers");
 let timeOff = 8 //initial penalty is 8 sec. setting timeoff = penaltytime so later i can add easy/medium/hard modes perhaps.
 const penaltyTime = timeOff
-let timeLeft = 10;
+let timeLeft = 75;
 var userScore = 0;
 const regModal = document.getElementById('reg-modal');
 const qStatus = document.getElementById("ans-status");
