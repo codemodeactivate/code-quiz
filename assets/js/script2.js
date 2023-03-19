@@ -107,18 +107,26 @@ const quiz =
 const questionContainer = document.getElementById("quiz-container"); //where the questions will be loaded
 let currentQuestionIndex = 0; //initialize current question
 const startBtn = document.getElementById("start-quiz");
+const quizQuestionEle = document.getElementById("quiz-question");
 const questionText = document.createElement("p");
 const choicesList = document.createElement("div");
 const quizIntro = document.getElementById("quiz-intro"); // Intro test + start game button
-const currentQuestion = document.getElementById("current-question");//placeholder for current question
+const currentQuestionEle = document.getElementById("current-question");//placeholder for current question
 const quizAnswers = document.getElementById("quiz-answers");
 let timeOff = 8 //initial penalty is 8 sec. setting timeoff = penaltytime so later i can add easy/medium/hard modes perhaps.
 const penaltyTime = timeOff
 let timeLeft = 60;
 var userName;
 var userScore;
-const status = document.getElementById("ans-status")
+var highScores = {}
+const qStatus = document.getElementById("ans-status")
 var questAnswered = 0;
+
+
+//Formula for handling the score//
+//Correct answer = 10 points
+//Incorrect answer = 8 second penalty
+//Final Score = sum(points) + (time_left * 30)
 
 function timerStart() {
 const countdownTimer = setInterval(() => {
@@ -151,10 +159,10 @@ function pageNextQuestion() {
 
     // Update the question text in the HTML
     questionText.innerHTML = `<p class="h5 fw-normal fs-2 text-start mb-3">` + currentQuestion.question + `</p>`;
-    questionContainer.appendChild(questionText);
+    currentQuestionEle.appendChild(questionText);
 
     // Add the choices list element to the HTML
-    questionContainer.appendChild(choicesList);
+   currentQuestionEle.appendChild(choicesList);
 
     // Loop through the possible answer choices and add them to the HTML
     const answerChoices = currentQuestion.choices;
@@ -199,6 +207,7 @@ function pageNextQuestion() {
         // adding in logic to see if there are more questions to restart/callback function
         if (nextQuestionIndex >= quizQuestions.length) {
 
+          displayResults();
           return;
         }
 
@@ -215,6 +224,7 @@ function pageNextQuestion() {
 function displayResults() {
 
     console.log("GAMEOVER");
+    qStatus.innerHTML = "Gameover";
 
 
 }
