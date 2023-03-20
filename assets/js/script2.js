@@ -329,9 +329,11 @@ var highScores = JSON.parse(highScoresString) || {};
 }
 
 function displayHighScores() {
-  highScores = JSON.parse(highScoresString);
-  var highScoreInstance = new bootstrap.Modal(regModal);
-  var scoreBoard = Object.entries(highScores).map(([initials, userScore]) =>
+  highScores = JSON.parse(highScoresString) || {};
+  //var highScoreInstance = new bootstrap.Modal(regModal);
+  var scores = Object.entries(highScores)
+  scores = scores.slice(0,10);
+  const scoreBoard = scores.map(([initials, userScore]) =>
   `${initials} - ${userScore}`).join("<br>");
   highScoreModal.innerHTML = scoreBoard;
   //highScoreModal.innerHTML = `<div id="modal-buttons"><button class="btn btn-primary">Restart</button><button class="btn btn-primary">Clear High Scores</button></div>`;
