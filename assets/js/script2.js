@@ -335,7 +335,7 @@ function displayHighScores() {
   `${initials} - ${userScore}`).join("<br>");
   highScoreModal.innerHTML = scoreBoard;
   //highScoreModal.innerHTML = `<div id="modal-buttons"><button class="btn btn-primary">Restart</button><button class="btn btn-primary">Clear High Scores</button></div>`;
-  highScoreInstance.show();
+  //highScoreInstance.show();
 
 }
 
@@ -355,7 +355,5 @@ startBtn.addEventListener("click", function() {
     timerStart();
     pageNextQuestion();
     //toggle(currentQuestion)
-
-
 
   });
