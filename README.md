@@ -29,6 +29,8 @@ Last time I was docked points for including old comments & the grading criteria.
 ## Credits
 Thank you stack overflow for showing me how to sort. I probably could've managed but it would've taken me 20 more lines.
 https://noaheakin.medium.com/adding-sound-to-your-js-web-app-f6a0ca728984 - for showing me how to add sound to webpage.
+This page got me going down the rabbit hole to sort - https://forum.freecodecamp.org/t/is-there-anyway-i-can-shuffle-an-array-inside-of-an-object/477299/11
+
 
 ## User Story
 
