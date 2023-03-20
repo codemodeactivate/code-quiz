@@ -123,10 +123,12 @@ const regModal = document.getElementById('reg-modal');
 const qStatus = document.getElementById("ans-status");
 var questAnswered = 0;
 const highScoreModal = document.getElementById('high-score-modal');
-
+const modalOverlay = document.querySelectorAll('modal-backdrop');
+const modalClose = document.getElementById('modal-close');
 const viewHighScoresLink = document.getElementById('view-high-scores');
 viewHighScoresLink.addEventListener("click", displayHighScores);
-
+const restartGameBtn = document.getElementById('restart');
+const clearHighScoresBtn = document.getElementById('clear-high-scores');
 
 
 
@@ -320,12 +322,20 @@ function displayHighScores() {
   var scoreBoard = Object.entries(highScores).map(([initials, userScore]) =>
   `${initials} - ${userScore}`).join("<br>");
   highScoreModal.innerHTML = scoreBoard;
+  //highScoreModal.innerHTML = `<div id="modal-buttons"><button class="btn btn-primary">Restart</button><button class="btn btn-primary">Clear High Scores</button></div>`;
   highScoreInstance.show();
 
 }
 
+clearHighScoresBtn.addEventListener("click", function() {
+  highScoreModal.innerHTML = "";
+  localStorage.removeItem('highScores');
+});
 
+restartGameBtn.addEventListener("click", function() {
+  
 
+});
 
   // Listen for the "Start Quiz" button click event
 startBtn.addEventListener("click", function() {
