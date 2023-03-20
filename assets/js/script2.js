@@ -129,9 +129,10 @@ const viewHighScoresLink = document.getElementById('view-high-scores');
 viewHighScoresLink.addEventListener("click", displayHighScores);
 const restartGameBtn = document.getElementById('restart');
 const clearHighScoresBtn = document.getElementById('clear-high-scores');
+const correctSound = document.getElementById('correct-sound');
+const incorrectSound = document.getElementById('incorrect-sound');
 
-
-
+let countdownTimer;
 
 
 //Formula for handling the score//
@@ -140,7 +141,7 @@ const clearHighScoresBtn = document.getElementById('clear-high-scores');
 //Final Score = sum(points) + (time_left * 30)
 
 function timerStart() {
-const countdownTimer = setInterval(() => {
+countdownTimer = setInterval(() => {
   timeLeft--;
   document.getElementById('timer').innerHTML = `${timeLeft}`;
   if (timeLeft <= 0) {
@@ -149,6 +150,7 @@ const countdownTimer = setInterval(() => {
     document.getElementById('timer').innerHTML = "0"; //prevent score from going negative.
     displayResults();
   }
+  checkQuizComplete(); //initiate helper function to see if we're done quiz earlier than timelimit
 }, 1000);
 }
 
@@ -220,6 +222,7 @@ function pageNextQuestion() {
         if (currentQuestion.answer === choiceBtn.value) {
             //console.log("CORRECT");
             qStatus.innerHTML = "CORRECT!";
+            correctSound.play();
             userScore += 10;
             questAnswered +=1;
 
@@ -236,7 +239,7 @@ function pageNextQuestion() {
             //console.log("INCORRECT");
             timeLeft = timeLeft - penaltyTime;
             qStatus.innerHTML = "INCORRECT!";
-
+            incorrectSound.play();
             questAnswered +=1;
 
             //I like the idea of the answer validity being flashed instead of remaining as in the example gif. I commented it out, but would choose to include this if it
@@ -360,3 +363,10 @@ startBtn.addEventListener("click", function() {
     //toggle(currentQuestion)
 
   });
+
+
+function checkQuizComplete() {
+  if (questAnswered === quiz.quiz.length) {
+    clearInterval(countdownTimer);
+  }
+}
