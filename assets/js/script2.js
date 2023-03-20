@@ -134,6 +134,20 @@ const incorrectSound = document.getElementById('incorrect-sound');
 
 let countdownTimer;
 
+//shuffler, nested loop
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+shuffle(quiz.quiz); //shuffle quest questions
+
+quiz.quiz.forEach((question) => {
+  shuffle(question.choices); //shuffle the answers of the questions
+});
+
 
 //Formula for handling the score//
 //Correct answer = 10 points
