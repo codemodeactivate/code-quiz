@@ -172,7 +172,7 @@ function gameStart() {
 
 }
 
-answerButton.addEventListener('click', answerSelected)
+//answerButton.addEventListener('click', answerSelected)
 
 function answerSelected(e) {
     const selectedAnswer = e.target.value;
@@ -200,20 +200,37 @@ version 2.0?
 
 function nextQuestion() {
     var currentQuestion = quizData.quiz[currentQuestionIndex]; //initialize and then also gets next question
-    questionContainer.innerHTML = `<p class="h5 fw-normal fs-2 text-start mb-3">` + currentQuestion.question + `</p>`; //update question text
     answerButtons.innerHTML = ''; // clear previous answer buttons
+    questionContainer.innerHTML = `<p class="h5 fw-normal fs-2 text-start mb-3">` + currentQuestion.question + `</p>`; //update question text
+
     currentQuestion.choices.forEach(function(choice, index){
         var choiceEle = document.createElement('button');
-        choiceEle.setAttribute('class', 'btn btn-primary choice');
+        choiceEle.setAttribute('class', 'btn btn-primary choice answer-choice');
         choiceEle.setAttribute('value', choice);
         choiceEle.textContent = choice;
         answerButtons.appendChild(choiceEle);
+
     })
 
 
 
 
 }
+
+const answerChoice = document.querySelectorAll('.answer-choice');
+
+// Add click event listener to each button
+answerButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    // Disable all answer buttons
+    answerButtons.forEach((button) => {
+      button.disabled = true;
+    });
+
+    // Load next question and set of answers
+    loadQuestion();
+  });
+});
 
 
 function pageNextQuestion() {

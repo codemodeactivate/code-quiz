@@ -3,7 +3,7 @@ Case Western Coding Bootcamp Module 04 Challenge
 
 [Live Demo](https://codemodeactivate.github.io/code-quiz/)
 
-![Screenshot](/screenshot.png)
+![Screenshot](/assets/images/demo.gif)
 
 ## Description
 
@@ -18,15 +18,17 @@ Coding assessments are an important part of the interview process for developers
 - [X] Add timer component
 - [X] Add a way to keep track of high scores
 - [X] Add a leader board
-- [ ] Add a go back & clear high scores button to the high scores modal
-- [ ] Add screenshot to satisfy grading criteria
-- [ ] Limit high score to top 10
-- [ ] Sort top 10
-- [ ] Add rest of scoring formula/make a scoring formula
+- [X] Add a go back & clear high scores button to the high scores modal
+- [X] Add screenshot to satisfy grading criteria
+- [X] Limit high score to top 10
+- [X] Sort top 10
+- [X] Add rest of scoring formula/make a scoring formula
 ## Notes
-
+Last time I was docked points for including old comments & the grading criteria. I'm choosing to keep this because I think it helps to show the evolution of any skills I'm trying to gain for future people that might be interested in such a thing.
 
 ## Credits
+Thank you stack overflow for showing me how to sort. I probably could've managed but it would've taken me 20 more lines.
+https://noaheakin.medium.com/adding-sound-to-your-js-web-app-f6a0ca728984 - for showing me how to add sound to webpage.
 
 ## User Story
 
