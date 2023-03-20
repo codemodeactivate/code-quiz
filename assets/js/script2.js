@@ -333,8 +333,7 @@ clearHighScoresBtn.addEventListener("click", function() {
 });
 
 restartGameBtn.addEventListener("click", function() {
-  
-
+  location.reload();
 });
 
   // Listen for the "Start Quiz" button click event
