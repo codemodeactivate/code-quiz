@@ -333,8 +333,9 @@ function displayHighScores() {
   //var highScoreInstance = new bootstrap.Modal(regModal);
   var scores = Object.entries(highScores)
   scores = scores.slice(0,10);
-  const scoreBoard = scores.map(([initials, userScore]) =>
-  `${initials} - ${userScore}`).join("<br>");
+  scores.sort((a,b) => b[1] - a[1]); //stackoverflow thank YOU!!
+  const scoreBoard = scores.map(([initials, userScore], i) =>
+  `${i + 1}. ${initials} - ${userScore}`).join("<br>");
   highScoreModal.innerHTML = scoreBoard;
   //highScoreModal.innerHTML = `<div id="modal-buttons"><button class="btn btn-primary">Restart</button><button class="btn btn-primary">Clear High Scores</button></div>`;
   //highScoreInstance.show();
