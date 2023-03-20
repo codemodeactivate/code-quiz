@@ -295,9 +295,16 @@ form.addEventListener('submit', function(event) {
   event.preventDefault();
 
 
- // var highScores = JSON.parse(highScoresString) || {};
+var highScoresString = localStorage.getItem('highScores');
+var highScores = JSON.parse(highScoresString) || {};
 
   initials = document.getElementById('initials').value;
+  highScoresString = JSON.stringify(highScores);
+  localStorage.setItem('highScores', highScoresString);
+
+  var highScoreInstance = new bootstrap.Modal(regModal);
+
+
 
   highScores[initials] = userScore;
 
@@ -305,10 +312,15 @@ form.addEventListener('submit', function(event) {
   var highScoresString = JSON.stringify(highScores);
   localStorage.setItem('highScores', highScoresString);
   var highScoreInstance = new bootstrap.Modal(regModal);
-  //highScores = JSON.parse(highScoresString);
-  quizQuestionEle.innerHTML = "";
+  highScores = JSON.parse(highScoresString);
+  //quizQuestionEle.innerHTML = "";
+  var latestScore = {
+    initials: initials,
+    score: userScore
+  };
+  Object.assign(highScores, {latestScore});
 
-  displayHighScores();
+  displayHighScores(highScores);
 
   highScoreInstance.show();
 
